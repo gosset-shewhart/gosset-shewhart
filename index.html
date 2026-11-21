@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gosset &amp; Shewhart</title>
+<meta name="description" content="Gosset &amp; Shewhart: estadística industrial, ciencia de datos y calidad de proveedores. / Industrial statistics, data science and supplier quality.">
+<meta name="theme-color" content="#0E1A33">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0E1A33;--ink:#14284B;--mist:#F4F6FA;--line:#D5DBE6;--teal:#006B6B;--teal-l:#2FD1C5;--muted:#4A5873;--soft:#B9C6DD}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:var(--mist);line-height:1.6;-webkit-font-smoothing:antialiased}
+html[data-lang="es"] .en{display:none}
+html[data-lang="en"] .es{display:none}
+a{color:var(--teal)}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:var(--ink);padding:8px 14px;z-index:10}
+.skip:focus{left:8px;top:8px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.hero{background:var(--navy);color:#E8EEF8}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 0}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:#E8EEF8;font-weight:500;letter-spacing:.4px}
+.nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0;align-items:center}
+.nav a.link{color:var(--soft);text-decoration:none;font-size:15px}
+.nav a.link:hover,.nav a.link:focus-visible{color:#fff}
+.lang{background:transparent;border:1px solid #3A4A6B;color:#E8EEF8;border-radius:6px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.lang:hover{border-color:var(--teal-l)}
+:focus-visible{outline:2px solid var(--teal-l);outline-offset:3px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:56px 0 88px}
+.eyebrow{font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal-l);margin:0 0 16px}
+h1{font-size:clamp(34px,5vw,54px);line-height:1.1;font-weight:600;margin:0 0 20px;letter-spacing:-.5px}
+.lead{font-size:18px;color:var(--soft);max-width:520px;margin:0 0 32px}
+.btn{display:inline-block;background:var(--teal-l);color:var(--navy);text-decoration:none;font-weight:600;padding:13px 24px;border-radius:8px}
+.btn:hover{background:#6FE3DA}
+.chart{background:#122244;border:1px solid #243558;border-radius:14px;padding:20px}
+.chart svg{width:100%;height:auto;display:block}
+.chart p{margin:12px 0 0;font-size:13px;color:var(--soft)}
+.proc{fill:none;stroke:#E8EEF8;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;animation:draw 2.2s ease-out both}
+.sig{fill:none;stroke:var(--teal-l);stroke-width:2.5;stroke-linecap:round;animation:fade .5s ease-out 2s both}
+.ring{fill:none;stroke:var(--teal-l);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-out 2.4s infinite}
+@keyframes draw{from{stroke-dashoffset:1}}
+@keyframes fade{from{opacity:0}}
+@keyframes pulse{from{transform:scale(1);opacity:.9}to{transform:scale(2.6);opacity:0}}
+section{padding:80px 0}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.2;font-weight:600;margin:0 0 14px;letter-spacing:-.3px}
+.sub{color:var(--muted);max-width:640px;margin:0 0 44px;font-size:17px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px}
+.card h3{margin:0 0 4px;font-size:20px;font-weight:600}
+.meta{font-size:13px;color:var(--teal);font-weight:500;margin:0 0 14px;letter-spacing:.3px}
+.card p{margin:0;color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.num{display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;font-weight:500;margin-bottom:16px}
+.bridge{margin:40px 0 0;font-size:18px;color:var(--ink);max-width:720px}
+.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.alt .card{background:var(--mist)}
+.contact{background:var(--navy);color:#E8EEF8;text-align:center}
+.contact .sub{color:var(--soft);margin:0 auto 28px}
+footer{background:var(--navy);color:var(--soft);font-size:14px;padding:0 0 32px}
+footer .wrap{border-top:1px solid #243558;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(max-width:860px){.hero-grid,.two,.three{grid-template-columns:1fr}.hero-grid{gap:36px;padding:32px 0 64px}section{padding:56px 0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main"><span class="es">Saltar al contenido</span><span class="en">Skip to content</span></a>
+
+<header class="hero">
+<div class="wrap">
+<nav class="nav" aria-label="Principal">
+<a class="brand" href="#top" id="top" aria-label="Gosset &amp; Shewhart">
+<svg width="64" height="30" viewBox="0 0 150 70" aria-hidden="true"><g transform="translate(75 2)"><text x="-24" y="52" text-anchor="end" font-size="54" font-weight="500" font-family="Inter,system-ui,sans-serif" fill="#E8EEF8">G</text><text x="24" y="52" text-anchor="start" font-size="54" font-weight="500" font-family="Inter,system-ui,sans-serif" fill="#E8EEF8">S</text><path d="M-22 54C-10 54-8 6 0 6C8 6 10 54 22 54" fill="none" stroke="#2FD1C5" stroke-width="3" stroke-linecap="round"/></g></svg>
+<span>Gosset &amp; Shewhart</span>
+</a>
+<ul>
+<li><a class="link" href="#idea"><span class="es">La idea</span><span class="en">The idea</span></a></li>
+<li><a class="link" href="#hacemos"><span class="es">Qué hacemos</span><span class="en">What we do</span></a></li>
+<li><a class="link" href="#contacto"><span class="es">Contacto</span><span class="en">Contact</span></a></li>
+<li><button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language">EN</button></li>
+</ul>
+</nav>
+<div class="hero-grid" id="main">
+<div>
+<p class="eyebrow">Supplier quality analytics</p>
+<h1>
+<span class="es">Decisiones de calidad con pocos datos. Control desde la primera señal.</span>
+<span class="en">Quality decisions from small data. Control from the first signal.</span>
+</h1>
+<p class="lead">
+<span class="es">Combinamos estadística industrial, ciencia de datos y experiencia en calidad de proveedores para detectar desviaciones antes de que se conviertan en defectos.</span>
+<span class="en">We combine industrial statistics, data science and supplier quality expertise to catch drift before it becomes a defect.</span>
+</p>
+<a class="btn" href="#contacto"><span class="es">Hablemos</span><span class="en">Get in touch</span></a>
+</div>
+<figure class="chart" style="margin:0">
+<svg viewBox="0 0 520 270" role="img" aria-label="Carta de control: un proceso estable cuyo último punto se sale del límite superior de control / Control chart: a stable process whose last point exceeds the upper control limit">
+<line x1="10" y1="45" x2="510" y2="45" stroke="#6D7FA3" stroke-width="1" stroke-dasharray="5 5"/>
+<line x1="10" y1="135" x2="510" y2="135" stroke="#3A4A6B" stroke-width="1"/>
+<line x1="10" y1="225" x2="510" y2="225" stroke="#6D7FA3" stroke-width="1" stroke-dasharray="5 5"/>
+<text x="14" y="38" font-size="11" fill="#B9C6DD" font-family="Inter,sans-serif">UCL</text>
+<text x="14" y="248" font-size="11" fill="#B9C6DD" font-family="Inter,sans-serif">LCL</text>
+<polyline class="proc" pathLength="1" points="30,140 70,122 110,150 150,126 190,146 230,118 270,142 310,130 350,150 390,124 430,138"/>
+<line class="sig" x1="430" y1="138" x2="476" y2="22"/>
+<circle cx="476" cy="22" r="6" fill="#2FD1C5"/>
+<circle class="ring" cx="476" cy="22" r="6"/>
+</svg>
+<figcaption style="margin:12px 0 0;font-size:13px;color:var(--soft)"><span class="es">Una carta de control de Shewhart: la señal aparece cuando el proceso se sale de sus límites.</span><span class="en">A Shewhart control chart: the signal appears when the process leaves its limits.</span></figcaption>
+</figure>
+</div>
+</div>
+</header>
+
+<main>
+<section id="idea">
+<div class="wrap">
+<h2><span class="es">Dos científicos que llevaron la estadística a la industria</span><span class="en">Two scientists who brought statistics into industry</span></h2>
+<p class="sub"><span class="es">Nuestro nombre rinde homenaje a dos ideas que siguen siendo la base de la calidad moderna.</span><span class="en">Our name honors two ideas that remain the foundation of modern quality.</span></p>
+<div class="two">
+<article class="card">
+<h3>William S. Gosset</h3>
+<p class="meta">Guinness · 1908</p>
+<p><span class="es">Químico en la cervecería Guinness, desarrolló la prueba t para decidir con muestras pequeñas. Publicó bajo el seudónimo «Student».</span><span class="en">A chemist at the Guinness brewery, he developed the t-test to make sound decisions from small samples. He published under the pen name “Student”.</span></p>
+</article>
+<article class="card">
+<h3>Walter A. Shewhart</h3>
+<p class="meta">Western Electric · Bell Labs · 1924</p>
+<p><span class="es">Físico e ingeniero, creó la carta de control para distinguir la variación normal de un proceso de los problemas reales. Es el origen del control estadístico de procesos.</span><span class="en">A physicist and engineer, he created the control chart to tell a process’s normal variation from real problems. It is the origin of statistical process control.</span></p>
+</article>
+</div>
+<p class="bridge"><span class="es">Gosset nos enseñó a decidir con poca información. Shewhart, a saber cuándo un proceso cambió. Ese es el trabajo de calidad de proveedores.</span><span class="en">Gosset taught us to decide with little information. Shewhart, to know when a process has changed. That is the work of supplier quality.</span></p>
+</div>
+</section>
+
+<section id="hacemos" class="alt">
+<div class="wrap">
+<h2><span class="es">Qué hacemos</span><span class="en">What we do</span></h2>
+<p class="sub"><span class="es">Áreas de enfoque en las que combinamos método estadístico y datos de proveedores.</span><span class="en">Focus areas where we combine statistical method and supplier data.</span></p>
+<div class="three">
+<article class="card">
+<span class="num" aria-hidden="true">1</span>
+<h3><span class="es">Calidad de proveedores</span><span class="en">Supplier quality</span></h3>
+<p><span class="es">Seguimiento del desempeño, no conformidades y criticidad de proveedores en un solo lugar.</span><span class="en">Supplier performance, nonconformances and criticality tracked in one place.</span></p>
+</article>
+<article class="card">
+<span class="num" aria-hidden="true">2</span>
+<h3><span class="es">Control estadístico de procesos</span><span class="en">Statistical process control</span></h3>
+<p><span class="es">Cartas de control y capacidad de proceso para detectar desviaciones temprano.</span><span class="en">Control charts and process capability to detect drift early.</span></p>
+</article>
+<article class="card">
+<span class="num" aria-hidden="true">3</span>
+<h3><span class="es">Decisiones con pocos datos</span><span class="en">Decisions from small data</span></h3>
+<p><span class="es">Pruebas estadísticas e intervalos de confianza pensados para muestras pequeñas.</span><span class="en">Statistical tests and confidence intervals built for small samples.</span></p>
+</article>
+</div>
+</div>
+</section>
+
+<section id="contacto" class="contact">
+<div class="wrap">
+<h2><span class="es">Hablemos</span><span class="en">Let’s talk</span></h2>
+<p class="sub"><span class="es">Cuéntanos qué proveedores o procesos quieres controlar mejor.</span><span class="en">Tell us which suppliers or processes you want to control better.</span></p>
+<a class="btn" href="mailto:contacto@TU-DOMINIO.com">contacto@TU-DOMINIO.com</a>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<span>© 2026 Gosset &amp; Shewhart</span>
+<span><span class="es">Estadística para la calidad industrial</span><span class="en">Statistics for industrial quality</span></span>
+</div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('lang');
+  function setLang(l) {
+    root.setAttribute('data-lang', l);
+    root.setAttribute('lang', l);
+    btn.textContent = l === 'es' ? 'EN' : 'ES';
+    try { localStorage.setItem('gs-lang', l); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('gs-lang'); } catch (e) {}
+  var initial = saved || ((navigator.language || 'es').toLowerCase().indexOf('en') === 0 ? 'en' : 'es');
+  setLang(initial);
+  btn.addEventListener('click', function () {
+    setLang(root.getAttribute('data-lang') === 'es' ? 'en' : 'es');
+  });
+})();
+</script>
+</body>
+</html>
